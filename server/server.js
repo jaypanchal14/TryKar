@@ -7,6 +7,12 @@ const { RoomHandler } = require("./room-handler.js");
 
 const port = 8000;
 const app = express();
+
+//Health
+app.get('/health', (_, res) => {
+    res.send("Server is running");
+});
+
 app.use(cors);
 
 const server = http.createServer(app);

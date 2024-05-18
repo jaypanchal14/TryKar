@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useReducer } from 'react'
 import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
 import { v4 as uuidV4 } from "uuid";
-import Peer from 'peerjs';
+import Peer, { util } from 'peerjs';
 import { PeerReducer } from './PeerReducer';
 import { addPeerAction, removePeerAction } from './PeerActions';
 
@@ -35,7 +35,12 @@ const RoomProvider = ({ children }) => {
     useEffect(() => {
 
         const meId = uuidV4();
-        const peer = new Peer(meId);
+        // Using local peer signaling server
+        const peer = new Peer(meId, {
+            host: "localhost",
+            port: 9001,
+            path: "/",
+        });
         setMe(peer);
 
         try {
@@ -45,10 +50,10 @@ const RoomProvider = ({ children }) => {
                 audio: true
             }).then(stream => {
                 setStream(stream);
+
             }).catch(err => {
                 console.error('Error accessing media devices: ' + err);
             })
-
 
         } catch (error) {
             console.error("Error accessing media devices: ", error);
@@ -58,9 +63,13 @@ const RoomProvider = ({ children }) => {
         socket.on("get-users", getUsers);
         socket.on("user-disconnected", removePeer);
 
-        // return () => {
-        //     socket.off('room-created', enterRoom);
-        // };
+        return () => {
+            socket.off('room-created');
+            socket.off("get-users");
+            socket.off("user-disconnected");
+            // socket.off("user-joined");
+            me?.disconnect();
+        };
     }, []);
 
     useEffect(() => {
@@ -68,6 +77,7 @@ const RoomProvider = ({ children }) => {
         if (!stream) return;
 
         socket.on("user-joined", ({ peerId }) => {
+            //This call is mediaConnection instance
             const call = me.call(peerId, stream);
             call.on("stream", (peerStream) => {
                 dispatch(addPeerAction(peerId, peerStream));
@@ -82,11 +92,24 @@ const RoomProvider = ({ children }) => {
                 // dispatch({ type : "ADD_PEER", payload : { peerId : `${call.peer}`, peerStream}});
                 
             })
-        })
+        });
+
+        // me.on("error", (err) => {
+        //     console.error("Error-type: "+err.type);
+        //     console.error(err);
+        // });
+
+        console.log({ peers });
+
+        return () => {
+            socket.off("user-joined");
+
+        };
 
     }, [me, stream]);
 
-    console.log({ peers });
+    // To check if it supports or not
+    // console.log("Is supported: "+util.supports.audioVideo);
 
     return (
         <RoomContext.Provider value={{

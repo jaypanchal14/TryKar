@@ -34,6 +34,8 @@ const RoomProvider = ({ children }) => {
 
     useEffect(() => {
 
+        console.log({socket});
+
         const meId = uuidV4();
         // Using local peer signaling server
         const peer = new Peer(meId, {
@@ -98,6 +100,14 @@ const RoomProvider = ({ children }) => {
         //     console.error("Error-type: "+err.type);
         //     console.error(err);
         // });
+        socket.on('check-room-result', (res) => {
+            console.log("result: " + JSON.stringify(res));
+            if(res.resp === true){
+                navigate(`/room/${res.roomId}`);
+            }else{
+                alert("No such ROOM-ID exists");
+            }
+        });
 
         console.log({ peers });
 

@@ -1,6 +1,7 @@
 ---
 - name: Deploy Application
   hosts: all
+  remote_user: jay
   become: true
 
   tasks:

@@ -27,4 +27,4 @@
     - name: Run containers using docker-compose
       command: docker-compose up -d
       args:
-        chdir: /var/lib/jenkins/workspace/TryKar/docker-compose.yml
+        chdir: /var/lib/jenkins/workspace/TryKar

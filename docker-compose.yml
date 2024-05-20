@@ -1,0 +1,32 @@
+services:
+  server:
+    build: ./server
+    image: jaypanchal14/trykar-server
+    container_name: server-container
+    ports:
+      - "8000:8000"
+    networks:
+      - trykar_network
+
+  signal-server:
+    build: ./peerjs
+    image: jaypanchal14/trykar-signaling-server
+    container_name: signal-container
+    ports:
+      - "9001:9001"
+    networks:
+      - trykar_network
+
+  client:
+    build: ./client
+    image: jaypanchal14/trykar-client
+    container_name: client-container
+    ports:
+      - "3000:3000"
+    networks:
+      - trykar_network
+    depends_on:
+      - signal-server
+
+networks:
+  trykar_network:

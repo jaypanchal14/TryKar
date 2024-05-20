@@ -1,6 +1,6 @@
 ---
 - name: Deploy Application
-  hosts: all
+  hosts: localhost
   remote_user: jay
   become: true
 

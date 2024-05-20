@@ -1,2 +1,3 @@
+[trykar]
 localhost ansible_user=jay ansible_ssh_pass=Jay@1402
 ansible_ssh_common_args = '-o StrictHostKeyChecking=no'

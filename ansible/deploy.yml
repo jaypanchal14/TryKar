@@ -1,8 +1,6 @@
 ---
 - name: Deploy Application
   hosts: localhost
-  # remote_user: jay
-  become: true
   connection: local
 
   tasks:

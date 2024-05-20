@@ -1,0 +1,47 @@
+pipeline{
+    agent any
+    
+    stages{
+        stage('Git checkout'){
+            steps{
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jaypanchal14/TryKar.git']])
+            }
+        }
+        stage('Stop any running container'){
+            steps{
+                script{
+              	    sh 'docker rm -f server-container || true'
+              	    sh 'docker rm -f signal-container || true'
+              	    sh 'docker rm -f client-container || true'
+                }
+            }
+        }
+        
+        stage('Orchestrate with docker-compose'){
+            steps{
+                sh 'docker-compose build'
+            }
+        }
+        stage('Push to docker-hub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
+                    sh 'docker login -u jaypanchal14 -p ${DockerPassword}'
+                    }
+                    sh 'docker push jaypanchal14/trykar-server'
+                    sh 'docker push jaypanchal14/trykar-signaling-server'
+                    sh 'docker push jaypanchal14/trykar-client'
+                    
+                }
+            }
+        }
+        
+        stage('Run Ansible playbook'){
+            steps{
+            	script{
+            	    ansiblePlaybook(playbook:'ansible/deploy.yml',inventory:'ansible/inventory')
+            	}
+            }
+        }
+    }
+}

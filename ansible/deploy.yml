@@ -28,3 +28,8 @@
       command: docker-compose up -d
       args:
         chdir: /var/lib/jenkins/workspace/TryKar
+      
+    # - name: Monitor with ELK stack
+    #   command: docker-compose -f docker-compose-elk.yml up -d
+    #   args:
+    #     chdir: /var/lib/jenkins/workspace/TryKar

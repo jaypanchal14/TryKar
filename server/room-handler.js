@@ -1,14 +1,17 @@
 const { generator } = require("./generator.js");
+const { logger } = require("./logger.js");
 
 const rooms = {};
 
 const RoomHandler = (socket) => {
 
     const createRoom = () => {
-        console.log("Creating room by socket-id:" + socket.id);
+        // console.log("Creating room by socket-id:" + socket.id);
+        logger.info("Creating room by socket-id:" + socket.id);
         const roomId = generator();
         rooms[roomId] = [];
-        console.log("New created Room-id: " + roomId);
+        // console.log("New created Room-id: " + roomId);
+        logger.info("New created Room-id: " + roomId);
         // socket.join(roomId);
         socket.emit("room-created", { roomId });
     };
@@ -17,7 +20,8 @@ const RoomHandler = (socket) => {
         if (!rooms[roomId]) rooms[roomId] = [];
         
         if (!rooms[roomId].includes(peerId)) {
-            console.log("User joined the room:" + roomId + ", with peerId: " + peerId);
+            // console.log("User joined the room:" + roomId + ", with peerId: " + peerId);
+            logger.info("User joined the room:" + roomId + ", with peerId: " + peerId);
             rooms[roomId].push(peerId);
             socket.join(roomId);
             socket.to(roomId).emit("user-joined", { peerId });
@@ -26,7 +30,8 @@ const RoomHandler = (socket) => {
                 participants: rooms[roomId]
             });
         } else {
-            console.log("User with peerId: " + peerId + ", is already in room: " + roomId);
+            // console.log("User with peerId: " + peerId + ", is already in room: " + roomId);
+            logger.info("User with peerId: " + peerId + ", is already in room: " + roomId);
         }
 
         socket.on("disconnect", () => {
@@ -36,7 +41,8 @@ const RoomHandler = (socket) => {
 
     const leaveRoom = ({ roomId, peerId }) => {
         if (rooms[roomId]) {
-            console.log("User left the room:" + roomId + ", with peerId: " + peerId);
+            // console.log("User left the room:" + roomId + ", with peerId: " + peerId);
+            logger.info("User left the room:" + roomId + ", with peerId: " + peerId);
             rooms[roomId] = rooms[roomId].filter(id => id !== peerId);
             socket.to(roomId).emit("user-disconnected", peerId);
         }
@@ -44,10 +50,12 @@ const RoomHandler = (socket) => {
 
     const checkRoom = ({ roomId }) => {
         if (rooms[roomId]) {
-            console.log("Room exists:" + roomId);
+            // console.log("Room exists:" + roomId);
+            logger.info("Room exists:" + roomId);
             socket.emit("check-room-result", {resp : true, roomId});
         }else{
-            console.log("Room does not exist:" + roomId);
+            // console.log("Room does not exist:" + roomId);
+            logger.error("Room does not exist:" + roomId);
             socket.emit("check-room-result", {resp : false, roomId});
         }
     };

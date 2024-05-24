@@ -10,7 +10,7 @@ export const VideoPlayer = ({ stream }) => {
     }, [stream]);
 
     return (
-        <video ref={videoRef} autoPlay muted/>
+        <video ref={videoRef} autoPlay/>
         // <>VideoPlayer</>
   )
 }

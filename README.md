@@ -47,3 +47,12 @@ $ sudo docker-compose up
 <!-- In case you want remove the containers -->
 $ sudo docker-compose down
 ```
+
+
+<br>
+To check for elasticsearch : <br>
+http://localhost:9200
+
+<br>
+To check indices : <br>
+http://localhost:9200/_cat/indices

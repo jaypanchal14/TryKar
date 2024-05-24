@@ -1,14 +1,12 @@
 const winston = require('winston');
+const { ecsFormat } = require('@elastic/ecs-winston-format');
 
 const logger = winston.createLogger({
-    format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json()
-    ),
+    format: ecsFormat(),
     transports: [
         new winston.transports.Console(),
         new winston.transports.File({
-            filename: '../trykar-logs/app.log',
+            filename: 'logs/app.log',
             maxsize: 1000000
         })
     ]

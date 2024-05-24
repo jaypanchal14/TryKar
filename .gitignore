@@ -2,6 +2,9 @@
 
 # dependencies
 /server/node_modules
+/server/logs
+/trykar-logs/
+
 /client/node_modules
 /peerjs/node_modules
 /.pnp

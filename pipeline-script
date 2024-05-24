@@ -44,12 +44,12 @@ pipeline{
             }
         }
 
-        // stage('Monitor with ELK') {
-        //     steps {
-        //         script {
-        //             sh 'docker-compose -f docker-compose-elk.yml up -d'
-        //         }
-        //     }
-        // }
+        stage('Monitor with ELK') {
+            steps {
+                script {
+                    sh 'docker-compose -f docker-compose-elk.yml up -d'
+                }
+            }
+        }
     }
 }

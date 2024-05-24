@@ -8,7 +8,7 @@ const logger = winston.createLogger({
     transports: [
         new winston.transports.Console(),
         new winston.transports.File({
-            filename: 'logs/app.log',
+            filename: '../trykar-logs/app.log',
             maxsize: 1000000
         })
     ]

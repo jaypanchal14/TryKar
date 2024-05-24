@@ -1,0 +1,20 @@
+{"level":"info","message":"server is running on port: 8000","timestamp":"2024-05-24T19:32:55.451Z"}
+{"level":"info","message":"User request for connection received with socket-id:ZXGxuEr9JkvVM4TmAAAB","timestamp":"2024-05-24T19:32:56.526Z"}
+{"level":"info","message":"User going to disconnect:transport close","timestamp":"2024-05-24T19:33:15.443Z"}
+{"level":"info","message":"User request for connection received with socket-id:v5T543OOZtldt9BrAAAD","timestamp":"2024-05-24T19:33:15.597Z"}
+{"level":"info","message":"server is running on port: 8000","timestamp":"2024-05-24T19:34:00.629Z"}
+{"level":"info","message":"User request for connection received with socket-id:cTdxrntQmvc3YyjbAAAB","timestamp":"2024-05-24T19:34:59.322Z"}
+{"level":"info","message":"User going to disconnect:transport close","timestamp":"2024-05-24T19:35:07.151Z"}
+{"level":"info","message":"server is running on port: 8000","timestamp":"2024-05-24T19:58:19.113Z"}
+{"level":"info","message":"User request for connection received with socket-id:WtxL_6CncE7WFgOXAAAB","timestamp":"2024-05-24T20:01:51.476Z"}
+{"level":"info","message":"server is running on port: 8000","timestamp":"2024-05-24T20:08:56.940Z"}
+{"level":"info","message":"server is running on port: 8000","timestamp":"2024-05-24T20:11:49.493Z"}
+{"level":"info","message":"User request for connection received with socket-id:86DkaUW5bXp-U3NnAAAB","timestamp":"2024-05-24T20:13:34.196Z"}
+{"level":"info","message":"User going to disconnect:transport close","timestamp":"2024-05-24T20:13:39.119Z"}
+{"level":"info","message":"server is running on port: 8000","timestamp":"2024-05-24T20:15:42.819Z"}
+{"level":"info","message":"server is running on port: 8000","timestamp":"2024-05-24T20:35:23.258Z"}
+{"@timestamp":"2024-05-24T21:21:04.556Z","ecs.version":"8.10.0","log.level":"info","message":"server is running on port: 8000"}
+{"@timestamp":"2024-05-24T21:22:42.756Z","ecs.version":"8.10.0","log.level":"info","message":"Health endpoint invoked"}
+{"@timestamp":"2024-05-24T21:23:55.285Z","ecs.version":"8.10.0","log.level":"info","message":"Health endpoint invoked"}
+{"@timestamp":"2024-05-24T21:23:57.966Z","ecs.version":"8.10.0","log.level":"info","message":"User request for connection received with socket-id:mQmU4t1tBB0F9IO4AAAB"}
+{"@timestamp":"2024-05-24T21:24:19.911Z","ecs.version":"8.10.0","log.level":"info","message":"User going to disconnect:transport close"}

@@ -56,3 +56,10 @@ http://localhost:9200
 <br>
 To check indices : <br>
 http://localhost:9200/_cat/indices
+
+<br>
+To check for kibana dashboard : <br>
+http://localhost:5601/app/home
+
+<br>
+First, you would have to create a view, where you would have to select already created index. After which, you can view logs on the discover tab.

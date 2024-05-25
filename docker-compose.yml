@@ -30,50 +30,49 @@ services:
     depends_on:
       - signal-server
 
-  # #  ELK stack
-  
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
-    container_name: elasticsearch
-    restart: always
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - cluster.name=elasticsearch
-    ports:
-      - "9200:9200"
-    networks:
-      - trykar_network
-  #   # volumes:
-  #     # - elasticsearch-data-volume:/usr/share/elasticsearch/data
+#  ELK stack
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+  #   container_name: elasticsearch
+  #   restart: always
+  #   environment:
+  #     - discovery.type=single-node
+  #     - xpack.security.enabled=false
+  #     - cluster.name=elasticsearch
+  #   ports:
+  #     - "9200:9200"
+  #   networks:
+  #     - trykar_network
+  # #   # volumes:
+  # #     # - elasticsearch-data-volume:/usr/share/elasticsearch/data
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:8.13.4
-    restart: always
-    container_name: kibana
-    environment:
-      SERVER_NAME: kibana
-      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
-    networks:
-      - trykar_network
+  # kibana:
+  #   image: docker.elastic.co/kibana/kibana:8.13.4
+  #   restart: always
+  #   container_name: kibana
+  #   environment:
+  #     SERVER_NAME: kibana
+  #     ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+  #   ports:
+  #     - "5601:5601"
+  #   depends_on:
+  #     - elasticsearch
+  #   networks:
+  #     - trykar_network
 
-  filebeat:
-    build:
-      context: ./filebeat
-    container_name: filebeat
-    image: docker.elastic.co/beats/filebeat-oss:8.13.4
-    command: filebeat -e --strict.perms=false
-    volumes:
-        - ./trykar-logs:/server/logs
-    depends_on:
-        - elasticsearch
-        - kibana
-    networks:
-      - trykar_network
+  # filebeat:
+  #   build:
+  #     context: ./filebeat
+  #   container_name: filebeat
+  #   image: docker.elastic.co/beats/filebeat-oss:8.13.4
+  #   command: filebeat -e --strict.perms=false
+  #   volumes:
+  #       - ./trykar-logs:/server/logs
+  #   depends_on:
+  #       - elasticsearch
+  #       - kibana
+  #   networks:
+  #     - trykar_network
 
 
 networks:

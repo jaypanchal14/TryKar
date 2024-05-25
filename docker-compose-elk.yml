@@ -9,18 +9,10 @@ services:
       - cluster.name=elasticsearch
     ports:
       - "9200:9200"
-    volumes:
-      - elasticsearch-data-volume:/usr/share/elasticsearch/data
     networks:
-      - elk
-
-  # logstash:
-  #   image: docker.elastic.co/logstash/logstash:8.13.4
-  #   container_name: logstash
-  #   ports:
-  #     - "5044:5044"
-  #   volumes:
-  #     - ./logstash-pipeline:/usr/share/logstash/pipeline
+      - trykar_network
+  #   # volumes:
+  #     # - elasticsearch-data-volume:/usr/share/elasticsearch/data
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.13.4
@@ -28,18 +20,31 @@ services:
     container_name: kibana
     environment:
       SERVER_NAME: kibana
-      ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
     ports:
       - "5601:5601"
     depends_on:
       - elasticsearch
     networks:
-      - elk
+      - trykar_network
 
-volumes: 
-  elasticsearch-data-volume:
-    driver: local
+  filebeat:
+    build:
+      context: ./filebeat
+    container_name: filebeat
+    image: docker.elastic.co/beats/filebeat-oss:8.13.4
+    command: filebeat -e --strict.perms=false
+    volumes:
+        - ./trykar-logs:/server/logs
+    depends_on:
+        - elasticsearch
+        - kibana
+    networks:
+      - trykar_network
+
 
 networks:
-  elk:
+  trykar_network:
+
+volumes:
+  elasticsearch_data:

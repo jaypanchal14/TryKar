@@ -3,7 +3,7 @@
 # dependencies
 /server/node_modules
 /server/logs
-/trykar-logs/
+/trykar-logs/app.log
 
 /client/node_modules
 /peerjs/node_modules
